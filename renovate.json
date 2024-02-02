@@ -1,0 +1,32 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:base"],
+    "ignoreUnstable": false,
+    "enabledManagers": ["regex"],
+    "branchPrefix": ["release/"],
+    "prBodyTemplate": "{{{table}}}{{{notes}}}{{{changelogs}}}{{{configDescription}}}{{{footer}}}",
+
+    "packageRules": [
+        {
+            "description": "Group sbx dependencies for terragrunt files",
+            "matchPaths": ["src/terraform/aws/sbx/**"],
+            "groupName": "sbx",
+            "separateMajorMinor": "false"
+        }
+    ],
+
+    "regexManagers": [
+        {
+            "description": "Update bip-infrastructure release version for bip-tenant-argocd",
+            "fileMatch": ["tenant-tooling/argocd-bootstrap/terragrunt.hcl$"],
+            "matchStrings": [
+                "locals {\\s*target_revision = (?<currentValue>.*\\d.*).*?"
+            ],
+            "datasourceTemplate": "github-releases",
+            "packageNameTemplate": "jaredzieche/renovate-testing",
+            "depNameTemplate": "bip-tenant-argocd",
+            "extractVersionTemplate": "^(?<version>.*)$",
+            "versioningTemplate": "semver"
+        }
+    ]
+}
