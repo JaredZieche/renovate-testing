@@ -11,6 +11,7 @@
             "description": "Group sbx dependencies for terragrunt files",
             "matchPaths": ["src/terraform/aws/sbx/**"],
             "groupName": "sbx",
+            "matchDatasources": ["github-releases", "terragrunt"],
             "separateMajorMinor": "false"
         }
     ],
