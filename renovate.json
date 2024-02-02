@@ -19,7 +19,7 @@
     "regexManagers": [
         {
             "description": "Update bip-infrastructure release version for bip-tenant-argocd",
-            "fileMatch": ["*.hcl$"],
+            "fileMatch": ["terragrunt.hcl$"],
             "matchStrings": [
                 "locals\\s{\n*target_revision\\s=\\s\"(?<currentValue>.*\\d.*).*?\""
             ],
