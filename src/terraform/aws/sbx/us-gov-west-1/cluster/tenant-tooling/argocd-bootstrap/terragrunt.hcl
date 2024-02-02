@@ -12,8 +12,8 @@ dependencies {
 }
 
 locals {
-  target_revision = "main"
-  values_target_revision = "main"
+  target_revision = "0.0.0"
+  values_target_revision = "0.0.0"
 }
 
 terraform {
