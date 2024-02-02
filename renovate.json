@@ -18,7 +18,7 @@
     "regexManagers": [
         {
             "description": "Update bip-infrastructure release version for bip-tenant-argocd",
-            "fileMatch": ["tenant-tooling/argocd-bootstrap/terragrunt.hcl$"],
+            "fileMatch": [".*tenant-tooling/argocd-bootstrap/terragrunt.hcl$"],
             "matchStrings": [
                 "locals {\\s*target_revision = (?<currentValue>.*\\d.*).*?"
             ],
