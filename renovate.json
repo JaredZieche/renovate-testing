@@ -19,9 +19,7 @@
         {
             "description": "Update bip-infrastructure release version for bip-tenant-argocd",
             "fileMatch": [".*tenant-tooling/argocd-bootstrap/terragrunt.hcl$"],
-            "matchStrings": [
-                "locals {\\s*target_revision = (?<currentValue>.*\\d.*).*?"
-            ],
+            "matchStrings": [".*target_revision = (?<currentValue>.*\\d.*).*?"],
             "datasourceTemplate": "github-releases",
             "packageNameTemplate": "JaredZieche/renovate-testing",
             "depNameTemplate": "bip-tenant-argocd",
