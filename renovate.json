@@ -22,7 +22,7 @@
             "matchStrings": [".*target_revision = (?<currentValue>.*\\d.*).*?"],
             "datasourceTemplate": "github-releases",
             "packageNameTemplate": "JaredZieche/renovate-testing",
-            "depNameTemplate": "bip-tenant-argocd",
+            "depNameTemplate": "renovate-testing",
             "extractVersionTemplate": "^(?<version>.*)$",
             "versioningTemplate": "semver"
         }
