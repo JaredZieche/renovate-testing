@@ -26,6 +26,18 @@
 
     "regexManagers": [
         {
+            "description": "Update argocd projects version",
+            "fileMatch": [".yaml$"],
+            "matchStrings": [
+                "\\s*tenantProjects:\\n\\s*targetRevision:\\s(?<currentValue>.*)"
+            ],
+            "datasourceTemplate": "github-releases",
+            "packageNameTemplate": "JaredZieche/renovate-testing",
+            "depNameTemplate": "TenantProjects",
+            "extractVersionTemplate": "^(?<version>.*)$",
+            "versioningTemplate": "semver"
+        },
+        {
             "description": "Update argocd App version",
             "fileMatch": [".yaml$"],
             "matchStrings": [
