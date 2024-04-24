@@ -32,7 +32,7 @@
                 "\\s*argoApp:\\n\\s*targetRevision:\\s(?<currentValue>.*)"
             ],
             "datasourceTemplate": "github-releases",
-            "packageNameTemplate": "department-of-veterans-affairs/bip-tenant-argocd",
+            "packageNameTemplate": "JaredZieche/renovate-testing",
             "depNameTemplate": "ArgoCD",
             "extractVersionTemplate": "^(?<version>.*)$",
             "versioningTemplate": "semver"
