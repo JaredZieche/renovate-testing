@@ -13,10 +13,30 @@
             "groupName": "sbx",
             "matchDatasources": ["github-releases", "terragrunt"],
             "separateMajorMinor": "false"
+        },
+
+        {
+            "description": "Group dependencies from .yaml files",
+            "matchPaths": ["**/values-prod.yaml"],
+            "matchDatasources": ["github-releases"],
+            "groupName": "prod-prime",
+            "separateMajorMinor": "false"
         }
     ],
 
     "regexManagers": [
+        {
+            "description": "Update argocd App version",
+            "fileMatch": [".yaml$"],
+            "matchStrings": [
+                "\\s*argoApp:\\n\\s*targetRevision:\\s(?<currentValue>.*)"
+            ],
+            "datasourceTemplate": "github-releases",
+            "packageNameTemplate": "department-of-veterans-affairs/bip-tenant-argocd",
+            "depNameTemplate": "ArgoCD",
+            "extractVersionTemplate": "^(?<version>.*)$",
+            "versioningTemplate": "semver"
+        },
         {
             "description": "Update bip-infrastructure release version for bip-tenant-argocd",
             "fileMatch": ["argocd-bootstrap/terragrunt.hcl$"],

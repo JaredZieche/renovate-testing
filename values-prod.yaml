@@ -1,0 +1,404 @@
+tenantConfig:
+  blue:
+    revision: master
+    enabled: false
+  workQueue:
+    revision: prod
+    enabled: true
+  baaz:
+    revision: master
+    enabled: false
+  benefitsServices:
+    revision: master
+    enabled: true
+  bie:
+    revision: master
+    enabled: true
+  bieAniml:
+    revision: master
+    enabled: false
+  bpds:
+    revision: master
+    enabled: true
+  claims:
+    revision: master
+    enabled: true
+  css:
+    revision: master
+    enabled: false
+  exhibit:
+    revision: master
+    enabled: false
+  fiduciaryService:
+    revision: master
+    enabled: true
+  crpUtils:
+    revision: prod
+    enabled: false
+  bih:
+    revision: prod
+    enabled: false
+  jdes:
+    revision: prod
+    enabled: false
+  bah:
+    revision: prod
+    enabled: false
+  bffs:
+    revision: prod
+    enabled: true
+  bss:
+    revision: prod
+    enabled: true
+  cap:
+    revision: prod
+    enabled: false
+  cest:
+    revision: prod
+    enabled: false
+  cfapi:
+    revision: prod
+    enabled: true
+  cpui:
+    revision: prod
+    enabled: true
+  dataSynchronization:
+    revision: prod
+    enabled: true
+  dbqCmt:
+    revision: prod
+    enabled: false
+  dbqPortal:
+    revision: prod
+    enabled: false
+  dmdt:
+    revision: prod
+    enabled: true
+  docgen:
+    revision: prod
+    enabled: true
+  examDestination:
+    revision: prod
+    enabled: true
+  examMgmt:
+    revision: prod
+    enabled: true
+  ftiCapture:
+    revision: prod
+    enabled: true
+  ftiFileRepo:
+    revision: prod
+    enabled: false
+  ftiSoap:
+    revision: prod
+    enabled: false
+  ibs:
+    revision: prod
+    enabled: true
+  pacman:
+    revision: prod
+    enabled: true
+  pensionAutomation:
+    revision: prod
+    enabled: true
+  pur:
+    revision: prod
+    enabled: false
+  rrc:
+    revision: prod
+    enabled: true
+  vasrd:
+    revision: prod
+    enabled: true
+  vbmsAwards:
+    revision: prod
+    enabled: false
+  vbmsRatings:
+    revision: prod
+    enabled: true
+  vbmsVetFormFillin:
+    revision: prod
+    enabled: false
+  vefsClaimevidence:
+    revision: prod
+    enabled: true
+  vefs:
+    revision: prod
+    enabled: false
+  vetdep:
+    revision: prod
+    enabled: true
+  mbms:
+    revision: prod
+    enabled: false
+  empwr:
+    revision: prod
+    enabled: false
+  socr:
+    revision: prod
+    enabled: true
+
+tenantProjects:
+  targetRevision: 1.7.7
+
+tenantApps:
+  targetRevision: 1.7.7
+
+argoApp:
+  targetRevision: 1.7.7
+
+argocd:
+  controller:
+    resources:
+      limits:
+        cpu: "6"
+        memory: 10Gi
+      requests:
+        cpu: "3"
+        memory: 10Gi
+  server:
+    resources:
+      limits:
+        cpu: "4"
+        memory: 5Gi
+      requests:
+        cpu: "4"
+        memory: 5Gi
+    rbacConfig:
+      policy.csv: |
+        g, prod-admins, role:admin
+
+        g, bip-platform-admins, role:admin
+        g, bip-platform-read-only, role:bip-platform-read-only
+        p, role:bip-platform-read-only, *, get, bip-platform-*/*, allow
+
+        g, bia-admins, role:bia-admins
+        p, role:bia-admins, *, *, bia-*/*, allow
+        g, bia-read-only, role:bia-read-only
+        p, role:bia-read-only, *, get, bia-*/*, allow
+
+        g, crp-admins, role:crp-admins
+        p, role:crp-admins, *, *, crp-*/*, allow
+        g, crp-read-only, role:crp-read-only
+        p, role:crp-read-only, *, get, crp-*/*, allow
+
+        g, empwr-admins, role:empwr-admins
+        p, role:empwr-admins, *, *, empwr-*/*, allow
+        g, empwr-read-only, role:empwr-read-only
+        p, role:empwr-read-only, *, get, empwr-*/*, allow
+
+        g, mbms-admins, role:mbms-admins
+        p, role:mbms-admins, *, *, mbms-*/*, allow
+        g, mbms-read-only, role:mbms-read-only
+        p, role:mbms-read-only, *, get, mbms-*/*, allow
+
+        g, vbms-admins, role:vbms-admins
+        p, role:vbms-admins, *, *, vbms-*/*, allow
+        g, vbms-read-only, role:vbms-read-only
+        p, role:vbms-read-only, *, get, vbms-*/*, allow
+
+
+
+        g, bip-benefits-services-admins, role:benefits-services-admins
+        p, role:benefits-services-admins, *, *, bia-benefits-services/*, allow
+        p, role:benefits-services-admins, *, *, argocd-tenant/bia-benefits-services, allow
+        g, bip-benefits-services-developers, role:benefits-services-developers
+        p, role:benefits-services-developers, *, get, bia-benefits-services/*, allow
+        p, role:benefits-services-developers, *, get, argocd-tenant/bia-benefits-services, allow
+
+        g, bip-bffs-admins, role:bffs-admins
+        p, role:bffs-admins, *, *, vbms-bffs/*, allow
+        p, role:bffs-admins, *, *, argocd-tenant/vbms-bffs, allow
+        g, bip-bffs-developers, role:bffs-developers
+        p, role:bffs-developers, *, get, vbms-bffs/*, allow
+        p, role:bffs-developers, *, get, argocd-tenant/vbms-bffs, allow
+
+        g, bip-bie-admins, role:bie-admins
+        p, role:bie-admins, *, *, bia-bie/*, allow
+        p, role:bie-admins, *, *, argocd-tenant/bia-bie, allow
+        g, bip-bie-developers, role:bie-developers
+        p, role:bie-developers, *, get, bia-bie/*, allow
+        p, role:bie-developers, *, get, argocd-tenant/bia-bie, allow
+
+        g, bip-blue-admins, role:blue-admins
+        p, role:blue-admins, *, *, bia-blue/*, allow
+        p, role:blue-admins, *, *, argocd-tenant/bia-blue, allow
+        g, bip-blue-developers, role:blue-developers
+        p, role:blue-developers, *, get, bia-blue/*, allow
+        p, role:blue-developers, *, get, argocd-tenant/bia-blue, allow
+
+        g, bip-bpds-admins, role:bpds-admins
+        p, role:bpds-admins, *, *, bia-bpds/*, allow
+        p, role:bpds-admins, *, *, argocd-tenant/bia-bpds, allow
+        g, bip-bpds-developers, role:bpds-developers
+        p, role:bpds-developers, *, get, bia-bpds/*, allow
+        p, role:bpds-developers, *, get, argocd-tenant/bia-bpds, allow
+
+        g, bip-bss-admins, role:bss-admins
+        p, role:bss-admins, *, *, vbms-bss/*, allow
+        p, role:bss-admins, *, *, argocd-tenant/vbms-bss, allow
+        g, bip-bss-developers, role:bss-developers
+        p, role:bss-developers, *, get, vbms-bss/*, allow
+        p, role:bss-developers, *, get, argocd-tenant/vbms-bss, allow
+
+        g, bip-cfapi-admins, role:cfapi-admins
+        p, role:cfapi-admins, *, *, vbms-cfapi/*, allow
+        p, role:cfapi-admins, *, *, argocd-tenant/vbms-cfapi, allow
+        g, bip-cfapi-developers, role:cfapi-developers
+        p, role:cfapi-developers, *, get, vbms-cfapi/*, allow
+        p, role:cfapi-developers, *, get, argocd-tenant/vbms-cfapi, allow
+
+        g, bip-claims-admins, role:claims-admins
+        p, role:claims-admins, *, *, bia-claims/*, allow
+        p, role:claims-admins, *, *, argocd-tenant/bia-claims, allow
+        g, bip-claims-developers, role:claims-developers
+        p, role:claims-developers, *, get, bia-claims/*, allow
+        p, role:claims-developers, *, get, argocd-tenant/bia-claims, allow
+
+        g, bip-cpui-admins, role:cpui-admins
+        p, role:cpui-admins, *, *, vbms-cpui/*, allow
+        p, role:cpui-admins, *, *, argocd-tenant/vbms-cpui, allow
+        g, bip-cpui-developers, role:cpui-developers
+        p, role:cpui-developers, *, get, vbms-cpui/*, allow
+        p, role:cpui-developers, *, get, argocd-tenant/vbms-cpui, allow
+
+        g, bip-data-synchronization-admins, role:data-synchronization-admins
+        p, role:data-synchronization-admins, *, *, vbms-data-synchronization/*, allow
+        p, role:data-synchronization-admins, *, *, argocd-tenant/vbms-data-synchronization, allow
+        g, bip-data-synchronization-developers, role:data-synchronization-developers
+        p, role:data-synchronization-developers, *, get, vbms-data-synchronization/*, allow
+        p, role:data-synchronization-developers, *, get, argocd-tenant/vbms-data-synchronization, allow
+
+        g, bip-dmdt-admins, role:dmdt-admins
+        p, role:dmdt-admins, *, *, vbms-dmdt/*, allow
+        p, role:dmdt-admins, *, *, argocd-tenant/vbms-dmdt, allow
+        g, bip-dmdt-developers, role:dmdt-developers
+        p, role:dmdt-developers, *, get, vbms-dmdt/*, allow
+        p, role:dmdt-developers, *, get, argocd-tenant/vbms-dmdt, allow
+
+        g, bip-docgen-admins, role:docgen-admins
+        p, role:docgen-admins, *, *, vbms-docgen/*, allow
+        p, role:docgen-admins, *, *, argocd-tenant/vbms-docgen, allow
+        g, bip-docgen-developers, role:docgen-developers
+        p, role:docgen-developers, *, get, vbms-docgen/*, allow
+        p, role:docgen-developers, *, get, argocd-tenant/vbms-docgen, allow
+
+        g, bip-exam-destination-admins, role:exam-destination-admins
+        p, role:exam-destination-admins, *, *, vbms-exam-destination/*, allow
+        p, role:exam-destination-admins, *, *, argocd-tenant/vbms-exam-destination, allow
+        g, bip-exam-destination-developers, role:exam-destination-developers
+        p, role:exam-destination-developers, *, get, vbms-exam-destination/*, allow
+        p, role:exam-destination-developers, *, get, argocd-tenant/vbms-exam-destination, allow
+
+        g, bip-exam-mgmt-admins, role:exam-mgmt-admins
+        p, role:exam-mgmt-admins, *, *, vbms-exam-mgmt/*, allow
+        p, role:exam-mgmt-admins, *, *, argocd-tenant/vbms-exam-mgmt, allow
+        g, bip-exam-mgmt-developers, role:exam-mgmt-developers
+        p, role:exam-mgmt-developers, *, get, vbms-exam-mgmt/*, allow
+        p, role:exam-mgmt-developers, *, get, argocd-tenant/vbms-exam-mgmt, allow
+
+        g, bip-fiduciary-service-admins, role:fiduciary-service-admins
+        p, role:fiduciary-service-admins, *, *, bia-fiduciary-service/*, allow
+        p, role:fiduciary-service-admins, *, *, argocd-tenant/bia-fiduciary-service, allow
+        g, bip-fiduciary-service-developers, role:fiduciary-service-developers
+        p, role:fiduciary-service-developers, *, get, bia-fiduciary-service/*, allow
+        p, role:fiduciary-service-developers, *, get, argocd-tenant/bia-fiduciary-service, allow
+
+        g, bip-fti-capture-admins, role:fti-capture-admins
+        p, role:fti-capture-admins, *, *, vbms-fti-capture/*, allow
+        p, role:fti-capture-admins, *, *, argocd-tenant/vbms-fti-capture, allow
+        g, bip-fti-capture-developers, role:fti-capture-developers
+        p, role:fti-capture-developers, *, get, vbms-fti-capture/*, allow
+        p, role:fti-capture-developers, *, get, argocd-tenant/vbms-fti-capture, allow
+
+        g, bip-fti-file-repo-admins, role:fti-file-repo-admins
+        p, role:fti-file-repo-admins, *, *, vbms-fti-file-repo/*, allow
+        p, role:fti-file-repo-admins, *, *, argocd-tenant/vbms-fti-file-repo, allow
+        g, bip-fti-file-repo-developers, role:fti-file-repo-developers
+        p, role:fti-file-repo-developers, *, get, vbms-fti-file-repo/*, allow
+        p, role:fti-file-repo-developers, *, get, argocd-tenant/vbms-fti-file-repo, allow
+
+        g, bip-fti-soap-admins, role:fti-soap-admins
+        p, role:fti-soap-admins, *, *, vbms-fti-soap/*, allow
+        p, role:fti-soap-admins, *, *, argocd-tenant/vbms-fti-soap, allow
+        g, bip-fti-soap-developers, role:fti-soap-developers
+        p, role:fti-soap-developers, *, get, vbms-fti-soap/*, allow
+        p, role:fti-soap-developers, *, get, argocd-tenant/vbms-fti-soap, allow
+
+        g, bip-ibs-admins, role:ibs-admins
+        p, role:ibs-admins, *, *, vbms-ibs/*, allow
+        p, role:ibs-admins, *, *, argocd-tenant/vbms-ibs, allow
+        g, bip-ibs-developers, role:ibs-developers
+        p, role:ibs-developers, *, get, vbms-ibs/*, allow
+        p, role:ibs-developers, *, get, argocd-tenant/vbms-ibs, allow
+
+        g, bip-mbms-admins, role:mbms-admins
+        p, role:mbms-admins, *, *, mbms-mbms/*, allow
+        p, role:mbms-admins, *, *, argocd-tenant/mbms-mbms, allow
+        g, bip-mbms-developers, role:mbms-developers
+        p, role:mbms-developers, *, get, mbms-mbms/*, allow
+        p, role:mbms-developers, *, get, argocd-tenant/mbms-mbms, allow
+
+        g, bip-pacman-admins, role:pacman-admins
+        p, role:pacman-admins, *, *, vbms-pacman/*, allow
+        p, role:pacman-admins, *, *, argocd-tenant/vbms-pacman, allow
+        g, bip-pacman-developers, role:pacman-developers
+        p, role:pacman-developers, *, get, vbms-pacman/*, allow
+        p, role:pacman-developers, *, get, argocd-tenant/vbms-pacman, allow
+
+        g, bip-pension-automation-admins, role:pension-automation-admins
+        p, role:pension-automation-admins, *, *, vbms-pension-automation/*, allow
+        p, role:pension-automation-admins, *, *, argocd-tenant/vbms-pension-automation, allow
+        g, bip-pension-automation-developers, role:pension-automation-developers
+        p, role:pension-automation-developers, *, get, vbms-pension-automation/*, allow
+        p, role:pension-automation-developers, *, get, argocd-tenant/vbms-pension-automation, allow
+
+        g, bip-rrc-admins, role:rrc-admins
+        p, role:rrc-admins, *, *, vbms-rrc/*, allow
+        p, role:rrc-admins, *, *, argocd-tenant/vbms-rrc, allow
+        g, bip-rrc-developers, role:rrc-developers
+        p, role:rrc-developers, *, get, vbms-rrc/*, allow
+        p, role:rrc-developers, *, get, argocd-tenant/vbms-rrc, allow
+
+        g, bip-vasrd-admins, role:vasrd-admins
+        p, role:vasrd-admins, *, *, vbms-vasrd/*, allow
+        p, role:vasrd-admins, *, *, argocd-tenant/vbms-vasrd, allow
+        g, bip-vasrd-developers, role:vasrd-developers
+        p, role:vasrd-developers, *, get, vbms-vasrd/*, allow
+        p, role:vasrd-developers, *, get, argocd-tenant/vbms-vasrd, allow
+
+        g, bip-vbmsc-admins, role:vbmsc-admins
+        p, role:vbmsc-admins, *, *, vbms-vbmsc/*, allow
+        p, role:vbmsc-admins, *, *, argocd-tenant/vbms-vbmsc, allow
+        g, bip-vbmsc-developers, role:vbmsc-developers
+        p, role:vbmsc-developers, *, get, vbms-vbmsc/*, allow
+        p, role:vbmsc-developers, *, get, argocd-tenant/vbms-vbmsc, allow
+
+        g, bip-vbms-ratings-admins, role:vbms-ratings-admins
+        p, role:vbms-ratings-admins, *, *, vbms-vbms-ratings/*, allow
+        p, role:vbms-ratings-admins, *, *, argocd-tenant/vbms-vbms-ratings, allow
+        g, bip-vbms-ratings-developers, role:vbms-ratings-developers
+        p, role:vbms-ratings-developers, *, get, vbms-vbms-ratings/*, allow
+        p, role:vbms-ratings-developers, *, get, argocd-tenant/vbms-vbms-ratings, allow
+
+        g, bip-vefs-claimevidence-admins, role:vefs-claimevidence-admins
+        p, role:vefs-claimevidence-admins, *, *, vbms-vefs-claimevidence/*, allow
+        p, role:vefs-claimevidence-admins, *, *, argocd-tenant/vbms-vefs-claimevidence, allow
+        g, bip-vefs-claimevidence-developers, role:vefs-claimevidence-developers
+        p, role:vefs-claimevidence-developers, *, get, vbms-vefs-claimevidence/*, allow
+        p, role:vefs-claimevidence-developers, *, get, argocd-tenant/vbms-vefs-claimevidence, allow
+
+        g, bip-vetdep-admins, role:vetdep-admins
+        p, role:vetdep-admins, *, *, vbms-vetdep/*, allow
+        p, role:vetdep-admins, *, *, argocd-tenant/vbms-vetdep, allow
+        g, bip-vetdep-developers, role:vetdep-developers
+        p, role:vetdep-developers, *, get, vbms-vetdep/*, allow
+        p, role:vetdep-developers, *, get, argocd-tenant/vbms-vetdep, allow
+
+        g, bip-work-queue-admins, role:work-queue-admins
+        p, role:work-queue-admins, *, *, vbms-work-queue/*, allow
+        p, role:work-queue-admins, *, *, argocd-tenant/vbms-work-queue, allow
+        g, bip-work-queue-developers, role:work-queue-developers
+        p, role:work-queue-developers, *, get, vbms-work-queue/*, allow
+        p, role:work-queue-developers, *, get, argocd-tenant/vbms-work-queue, allow
+
